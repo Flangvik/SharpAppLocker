@@ -1,0 +1,8 @@
+C:\Users\Jean\Desktop\SharpLocker\SharpApplocker\bin\Debug\SharpApplocker.exe.config
+C:\Users\Jean\Desktop\SharpLocker\SharpApplocker\bin\Debug\SharpApplocker.exe
+C:\Users\Jean\Desktop\SharpLocker\SharpApplocker\bin\Debug\SharpApplocker.pdb
+C:\Users\Jean\Desktop\SharpLocker\SharpApplocker\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Jean\Desktop\SharpLocker\SharpApplocker\obj\Debug\SharpApplocker.csproj.CopyComplete
+C:\Users\Jean\Desktop\SharpLocker\SharpApplocker\obj\Debug\SharpApplocker.exe
+C:\Users\Jean\Desktop\SharpLocker\SharpApplocker\obj\Debug\SharpApplocker.pdb
+C:\Users\Jean\Desktop\SharpLocker\SharpApplocker\obj\Debug\SharpApplocker.csproj.Fody.CopyLocal.cache

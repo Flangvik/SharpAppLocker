@@ -1,0 +1,10 @@
+D:\Projects\SharpLocker\SharpApplocker\bin\Release\SharpApplocker.exe.config
+D:\Projects\SharpLocker\SharpApplocker\bin\Release\SharpApplocker.exe
+D:\Projects\SharpLocker\SharpApplocker\bin\Release\SharpApplocker.pdb
+D:\Projects\SharpLocker\SharpApplocker\bin\Release\Newtonsoft.Json.xml
+D:\Projects\SharpLocker\SharpApplocker\obj\Release\SharpApplocker.csprojAssemblyReference.cache
+D:\Projects\SharpLocker\SharpApplocker\obj\Release\SharpApplocker.csproj.CoreCompileInputs.cache
+D:\Projects\SharpLocker\SharpApplocker\obj\Release\SharpApplocker.csproj.Fody.CopyLocal.cache
+D:\Projects\SharpLocker\SharpApplocker\obj\Release\SharpApplocker.csproj.CopyComplete
+D:\Projects\SharpLocker\SharpApplocker\obj\Release\SharpApplocker.exe
+D:\Projects\SharpLocker\SharpApplocker\obj\Release\SharpApplocker.pdb
