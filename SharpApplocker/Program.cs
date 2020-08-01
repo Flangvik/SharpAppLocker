@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sharplocker
+namespace SharpApplocker
 {
 
     class Program
@@ -72,11 +72,11 @@ namespace Sharplocker
                 }
 
                 if (localPolicy)
-                    Console.WriteLine(SharpLocker.GetAppLockerPolicy(SharpLocker.PolicyType.Local, ldapPath, xmlOutput));
+                    Console.WriteLine(SharpAppLocker.GetAppLockerPolicy(SharpAppLocker.PolicyType.Local, ldapPath, xmlOutput));
                 else if (domainPolicy)
-                    Console.WriteLine(SharpLocker.GetAppLockerPolicy(SharpLocker.PolicyType.Domain, ldapPath, xmlOutput));
+                    Console.WriteLine(SharpAppLocker.GetAppLockerPolicy(SharpAppLocker.PolicyType.Domain, ldapPath, xmlOutput));
                 else if (effectivePolicy)
-                    Console.WriteLine(SharpLocker.GetAppLockerPolicy(SharpLocker.PolicyType.Effective, ldapPath, xmlOutput));
+                    Console.WriteLine(SharpAppLocker.GetAppLockerPolicy(SharpAppLocker.PolicyType.Effective, ldapPath, xmlOutput));
                 else
                     throw new ArgumentException("mode not found");
             }
