@@ -32,4 +32,8 @@ Usage:
       --ldap=VALUE           the ldap filter to query the domain policy from
 ```
 
+![CS execution](https://i.imgur.com/BMSY2T5.png)
+
+
+
  for detailed information please take a look at the MSDN url: https://docs.microsoft.com/en-us/powershell/module/applocker/get-applockerpolicy?view=win10-ps
