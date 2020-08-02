@@ -18,3 +18,13 @@ D:\Projects\SharpAppLocker\SharpApplocker\bin\Release\SharpApplocker.pdb
 D:\Projects\SharpAppLocker\SharpApplocker\bin\Release\Newtonsoft.Json.xml
 D:\Projects\SharpAppLocker\SharpApplocker\obj\Release\SharpApplocker.csproj.Fody.CopyLocal.cache
 D:\Projects\SharpAppLocker\SharpApplocker\obj\Release\SharpApplocker.csproj.CopyComplete
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\bin\Release\SharpApplocker.exe.config
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\bin\Release\SharpApplocker.exe
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\bin\Release\SharpApplocker.pdb
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\bin\Release\Newtonsoft.Json.xml
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\obj\Release\SharpApplocker.csprojAssemblyReference.cache
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\obj\Release\SharpApplocker.csproj.CoreCompileInputs.cache
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\obj\Release\SharpApplocker.csproj.Fody.CopyLocal.cache
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\obj\Release\SharpApplocker.csproj.CopyComplete
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\obj\Release\SharpApplocker.exe
+C:\Users\redacted\Desktop\SharpAppLocker\SharpApplocker\obj\Release\SharpApplocker.pdb

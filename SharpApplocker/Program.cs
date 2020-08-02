@@ -4,24 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SharpApplocker
-{
+namespace SharpApplocker {
+    internal class Program {
+        private static bool CheckModes(int threshold, IEnumerable<bool> modes) => modes.Count(b => b) == threshold;
 
-    class Program
-    {
-        public static bool CheckModes(int threshold, IEnumerable<bool> modes)
-        { return modes.Count(b => b) == threshold; }
-
-        public static void ShowHelp(OptionSet p)
-        {
+        private static void ShowHelp(OptionSet p) {
             Console.WriteLine("Usage:");
             p.WriteOptionDescriptions(Console.Out);
             Console.WriteLine("\n for detailed information please take a look at the MSDN url: https://docs.microsoft.com/en-us/powershell/module/applocker/get-applockerpolicy?view=win10-ps");
         }
 
-
-        static void Main(string[] args)
-        {
+        static void Main(string[] args) {
             Info.PrintBanner();
 
             bool help = false;
@@ -31,42 +24,35 @@ namespace SharpApplocker
             bool effectivePolicy = false;
             String ldapPath = "";
            
-
             var options = new OptionSet(){
                 {"h|?|help","Show Help\n", o => help = true},
                 {"l|local","Queries local applocker config\n",o=>localPolicy = true },
                 {"d|domain","Queries domain applocker config (needs an ldap path)\n", o => domainPolicy = true },
                 {"e|effective","Queries the effective applocker config on this computer\n", o => effectivePolicy = true },
-                {"x|xml","output applocker in XML format (default is json) \n", o => xmlOutput = false },
-                {"ldap=","the ldap filter to query the domain policy from\n", o => ldapPath = o }
-                
+                {"x|xml","Output AppLocker in XML format (default is json) \n", o => xmlOutput = true },
+                {"ldap=","The ldap filter to query the domain policy from\n", o => ldapPath = o }        
             };
 
-            try
-            {
+            try {
                 options.Parse(args);
                 IEnumerable<bool> modes = new List<bool> { localPolicy, domainPolicy, effectivePolicy };
 
-                if(CheckModes(0,modes))
-                {
+                if(CheckModes(0,modes)) {
                     ShowHelp(options);
                     return;
                 }
                 
-                if(!CheckModes(1, modes))
-                {
+                if(!CheckModes(1, modes)) {
                     Console.WriteLine("You can only select one Policy at the time.");
                     return;
                 }
 
-                if(domainPolicy && String.IsNullOrEmpty(ldapPath))
-                {
-                    Console.WriteLine("you can only query domain applocker configuration if you specify an ldap filter.");
+                if(domainPolicy && String.IsNullOrEmpty(ldapPath)) {
+                    Console.WriteLine("You can only query domain AppLocker configuration if you specify an LDAP filter.");
                     return;
                 }
 
-                if (help)
-                {
+                if (help) {
                     ShowHelp(options);
                     return;
                 }
@@ -79,9 +65,7 @@ namespace SharpApplocker
                     Console.WriteLine(SharpAppLocker.GetAppLockerPolicy(SharpAppLocker.PolicyType.Effective, ldapPath, xmlOutput));
                 else
                     throw new ArgumentException("mode not found");
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 Console.Error.WriteLine(e.Message);
                 ShowHelp(options);
                 return;
