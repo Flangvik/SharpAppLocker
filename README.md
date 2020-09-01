@@ -1,5 +1,6 @@
 # SharpAppLocker
-C# port of the Get-AppLockerPolicy PS cmdlet 
+
+C# port of the Get-AppLockerPolicy PS cmdlet
 
 ```
  _____ _                       ___              _                _
@@ -12,24 +13,35 @@ C# port of the Get-AppLockerPolicy PS cmdlet
                        |_|         |_|   |_|
 
 
-
- V1.0.0 - by Flangvik & Jean_Maes_1994
+ V1.1.0 - by Flangvik & Jean_Maes_1994 , vastly improved by am0nsec
 
 
 Usage:
-  -h, -?, --help             Show Help
+  -h, -?, --help              Show Help
+ 
+  -l, --local                   Queries local applocker config
 
-  -l, --local                Queries local applocker config
+  -d, --domain               Queries domain applocker config (needs an ldap path)
 
-  -d, --domain               Queries domain applocker config (needs an ldap
-                               path)
+  -e, --effective            Queries the effective applocker config on this computer
 
-  -e, --effective            Queries the effective applocker config on this
-                               computer
+  -A, --allow                 Only return allowed action rules
 
-  -x, --xml                  output applocker in XML format (default is json)
+  -D, --deny                 Only return deny action rules
 
-      --ldap=VALUE           the ldap filter to query the domain policy from
+      --ldap=VALUE         The ldap filter to query the domain policy from
+
+      --rules=VALUE        Comma seperated list of ruleTypes to filter "FileHashRule, FilePathRule, FilePublisherRule,  All" default: All
+
+      --outfile=VALUE      Filepath to write found rules to disk in JSON format
+
+Examples:
+         SharpAppLocker.exe --effective --allow --outfile "C:\Windows\Tasks\Rules.json"
+
+         SharpAppLocker.exe --effective --allow --rules="FileHashRule,FilePathRule" --outfile="C:\Windows\Tasks\Rules.json"
+
+         SharpAppLocker.exe -e -D
+
 ```
 
 ![CS execution](https://i.imgur.com/BMSY2T5.png)
