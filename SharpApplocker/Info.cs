@@ -11,7 +11,7 @@ namespace SharpApplocker {
             Console.WriteLine(@"\____/|_| |_|\__,_|_|  | .__/\_| |_/ .__/| .__/\_____/\___/ \___|_|\_\___|_|   ");
             Console.WriteLine(@"                       | |         | |   | |                                   ");
             Console.WriteLine(@"                       |_|         |_|   |_|                                   ");
-            Console.WriteLine("\n\n V1.0.0 - by Flangvik & Jean_Maes_1994 \n\n");
+            Console.WriteLine("\n\n V1.1.0 - by Flangvik & Jean_Maes_1994 , vastly improved by am0nsec \n\n");
         }
     }
 }

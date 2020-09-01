@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppIdPolicyHandler.cs" />
+    <Compile Include="AppLockerRules.cs" />
     <Compile Include="SharpAppLocker.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="Program.cs" />

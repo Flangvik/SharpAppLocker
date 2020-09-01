@@ -1,22 +1,45 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Xml;
 using Newtonsoft.Json;
 
-namespace SharpApplocker {
-    public class SharpAppLocker {
-        public enum PolicyType {
+namespace SharpApplocker
+{
+
+  
+
+    public class SharpAppLocker
+    {
+        public enum PolicyType
+        {
             Local,
             Domain,
             Effective
         }
 
-        public static string GetAppLockerPolicy(PolicyType policyType, string ldapPath = "", bool xmlOutput = false) {
+        public static T DeserializeToObject<T>(string xmlData) where T : class
+        {
+            System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(T));
+
+            using (StreamReader sr = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(xmlData))))
+            {
+                return (T)ser.Deserialize(sr);
+            }
+        }
+
+
+        public static string GetAppLockerPolicy(PolicyType policyType, string[] appLockerRuleTypes, string ldapPath = "", bool allowOnly = false, bool denyOnly = false)
+        {
 
             // Create IAppIdPolicyHandler COM interface
             IAppIdPolicyHandler IAppHandler = new AppIdPolicyHandlerClass();
             string policies;
 
-            switch(policyType) {
+            switch (policyType)
+            {
                 case PolicyType.Local:
                 case PolicyType.Domain:
                     policies = IAppHandler.GetPolicy(ldapPath);
@@ -30,12 +53,105 @@ namespace SharpApplocker {
                     throw new InvalidOperationException();
             }
 
-            if (xmlOutput)
-                return policies;
+            var objectHolder = DeserializeToObject<AppLockerPolicy>(policies);
+            AppLockerPolicy appLockerPolicyFiltered = DeserializeToObject<AppLockerPolicy>(policies);
+            if (objectHolder.RuleCollection.Count() > 0)
+            {
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(policies);
-            return JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented, true);
+
+                //Null them all out to emtpy lists
+                for (int i = 0; i < appLockerPolicyFiltered.RuleCollection.Length; i++)
+                {
+                    appLockerPolicyFiltered.RuleCollection[i].FileHashRule = new List<AppLockerPolicyRuleCollectionFileHashRule>() { };
+                    appLockerPolicyFiltered.RuleCollection[i].FilePathRule = new List<AppLockerPolicyRuleCollectionFilePathRule>() { };
+                    appLockerPolicyFiltered.RuleCollection[i].FilePublisherRule = new List<AppLockerPolicyRuleCollectionFilePublisherRule>() { };
+                }
+
+                for (int i = 0; i < objectHolder?.RuleCollection.Count(); i++)
+                {
+                    if (objectHolder?.RuleCollection[i].FilePathRule != null)
+                    {
+                        if (appLockerRuleTypes.Contains("All", StringComparer.InvariantCultureIgnoreCase) || appLockerRuleTypes.Contains("FilePathRule", StringComparer.InvariantCultureIgnoreCase))
+                        {
+                            foreach (var pathRule in objectHolder?.RuleCollection[i].FilePathRule)
+                            {
+                                if (allowOnly || denyOnly)
+                                {
+                                    if (pathRule.Action.Equals(allowOnly ? "Allow" : "Deny"))
+                                    {
+                                        appLockerPolicyFiltered.RuleCollection[i].FilePathRule.Add(pathRule);
+                                        //outputBuilder.Append(JsonConvert.SerializeObject(pathRule, Newtonsoft.Json.Formatting.Indented));
+                                    }
+                                }
+                                else
+                                {
+                                    appLockerPolicyFiltered.RuleCollection[i].FilePathRule.Add(pathRule);
+                                    //outputBuilder.Append(JsonConvert.SerializeObject(pathRule, Newtonsoft.Json.Formatting.Indented));
+                                }
+                            }
+                        }
+                    }
+                    if (objectHolder?.RuleCollection[i].FileHashRule != null)
+                    {
+                        if (appLockerRuleTypes.Contains("All", StringComparer.InvariantCultureIgnoreCase) || appLockerRuleTypes.Contains("FileHashRule", StringComparer.InvariantCultureIgnoreCase))
+                        {
+                            foreach (var hashRule in objectHolder?.RuleCollection[i].FileHashRule)
+                            {
+                                if (allowOnly || denyOnly)
+                                {
+                                    if (hashRule.Action.Equals(allowOnly ? "Allow" : "Deny"))
+                                    {
+                                        appLockerPolicyFiltered.RuleCollection[i].FileHashRule.Add(hashRule);
+                                        //outputBuilder.Append(JsonConvert.SerializeObject(pathRule, Newtonsoft.Json.Formatting.Indented));
+                                    }
+                                }
+                                else
+                                {
+                                    appLockerPolicyFiltered.RuleCollection[i].FileHashRule.Add(hashRule);
+                                    //outputBuilder.Append(JsonConvert.SerializeObject(pathRule, Newtonsoft.Json.Formatting.Indented));
+                                }
+                            }
+                        }
+                    }
+                    if (objectHolder?.RuleCollection[i].FilePublisherRule != null)
+                    {
+                        if (appLockerRuleTypes.Contains("All", StringComparer.InvariantCultureIgnoreCase) || appLockerRuleTypes.Contains("FilePublisherRule", StringComparer.InvariantCultureIgnoreCase))
+                        {
+                            foreach (var pubRile in objectHolder?.RuleCollection[i].FilePublisherRule.ToArray())
+                            {
+                                if (allowOnly || denyOnly)
+                                {
+                                    if (pubRile.Action.Equals(allowOnly ? "Allow" : "Deny"))
+                                    {
+                                        appLockerPolicyFiltered.RuleCollection[i].FilePublisherRule.Add(pubRile);
+                                        //outputBuilder.Append(JsonConvert.SerializeObject(pathRule, Newtonsoft.Json.Formatting.Indented));
+                                    }
+                                }
+                                else
+                                {
+                                    appLockerPolicyFiltered.RuleCollection[i].FilePublisherRule.Add(pubRile);
+                                    //outputBuilder.Append(JsonConvert.SerializeObject(pathRule, Newtonsoft.Json.Formatting.Indented));
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Remove all the empty stuff
+                appLockerPolicyFiltered.RuleCollection = appLockerPolicyFiltered.RuleCollection.Where(x =>
+
+                x.FilePublisherRule.Count() > 0 ||
+                x.FilePathRule.Count() > 0 ||
+                x.FileHashRule.Count() > 0
+
+                ).ToArray();
+
+                return JsonConvert.SerializeObject(appLockerPolicyFiltered, Newtonsoft.Json.Formatting.Indented);
+
+
+            }
+            return JsonConvert.SerializeObject(objectHolder, Newtonsoft.Json.Formatting.Indented);
+
         }
     }
 }
