@@ -1,6 +1,9 @@
 # SharpAppLocker
 
-C# port of the Get-AppLockerPolicy PS cmdlet
+C# port of the Get-AppLockerPolicy PowerShell cmdlet with extended features.  Includes the ability to filter and search for a specific type of rules and actions.
+Useful when you already bypassed AppLocker initially, and you don't want to leave PS logs
+
+Looking for a pre-compiled version? Checkout the https://github.com/Flangvik/SharpCollection project!
 
 ```
  _____ _                       ___              _                _
@@ -44,8 +47,7 @@ Examples:
 
 ```
 
-![CS execution](https://i.imgur.com/BMSY2T5.png)
+![Example execution](https://i.imgur.com/c91siuS.png)
 
 
-
- for detailed information please take a look at the MSDN url: https://docs.microsoft.com/en-us/powershell/module/applocker/get-applockerpolicy?view=win10-ps
+ For detailed information please take a look at the MSDN url: https://docs.microsoft.com/en-us/powershell/module/applocker/get-applockerpolicy?view=win10-ps
